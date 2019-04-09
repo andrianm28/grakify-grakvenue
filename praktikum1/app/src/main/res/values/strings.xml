@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">praktikum1</string>
+    <string name="logo_splash">logo splash</string>
+    <string name="grakify">grakify</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnRegister">Register</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="fill_message">Please fill all the column</string>
+    <string name="about">About</string>
+    <string name="about_grakify">Grakify an app to amplify our sports spirit.   Coming up soon, stay tune.</string>
+    <string name="logout">Logout</string>
+    <string name="name_label_text">Name</string>
+    <string name="order_label_text">You booked a venue.</string>
+    <string name="enter_name_hint">Enter your name</string>
+    <string name="book_venue_label">Book Venue</string>
+    <string name="address_label_text">Address</string>
+    <string name="enter_address_hint">Enter your address</string>
+    <string name="phone_label_text">Phone</string>
+    <string name="enter_phone_hint">Enter your phone number</string>
+    <string name="note_label_text">Note :</string>
+    <string name="enter_note_hint">Enter note</string>
+    <string name="venue_duration_text">Venue duration :</string>
+    <string name="_1_hour">1 Hour</string>
+    <string name="_2_hours">2 Hours</string>
+    <string name="_3_hours">3 Hours</string>
+    <string name="recycler_view_text">Recycler View</string>
+    <string-array name="labels_array">
+        <item>Home</item>
+        <item>Work</item>
+        <item>Mobile</item>
+        <item>Other</item>
+    </string-array>
+</resources>
