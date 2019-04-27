@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">grakify</string>
+    <string name="app_name">Grakify</string>
+    <string name="cardVenue">Venue</string>
+    <string name="mapVenue">Map</string>
+    <string name="searchVenue">Search</string>
+    <string name="account">Account</string>\
+
 </resources>
