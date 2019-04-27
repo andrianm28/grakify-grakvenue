@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 ## GrakVenue
-GrakVenue is android apps for sport venue finder.
+GrakVenue is a sport venue finder.
 
   - List of venues [CardView]
   - Find spesific Venue [Search and Filter]
