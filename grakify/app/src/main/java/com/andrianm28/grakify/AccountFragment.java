@@ -1,4 +1,4 @@
-package com.andrianm28.grakify.fragment;
+package com.andrianm28.grakify;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

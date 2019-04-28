@@ -12,10 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.andrianm28.grakify.fragment.AccountFragment;
-import com.andrianm28.grakify.fragment.CardFragment;
-import com.andrianm28.grakify.fragment.MapFragment;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {

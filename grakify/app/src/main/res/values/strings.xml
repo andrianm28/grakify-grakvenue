@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Grakify</string>
+    <string name="maps_apiKey">AIzaSyART7rJ0l_j6NJGbF2ewWISyXj9t_XjoLw</string>
     <string name="cardVenue">Venue</string>
     <string name="mapVenue">Map</string>
     <string name="searchVenue">Search</string>
