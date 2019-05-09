@@ -59,13 +59,12 @@ public class MapFragment extends Fragment {
                         .tilt(45)
                         .build();
 
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 2000, null);
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 4000, null);
 
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(-5.357432, 105.314803))
                         .title("Itera")
                         .snippet("Institut Teknologi Sumtera")
-//                        .icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_place_marker))
                         );
 
 //                mMap.addMarker(new MarkerOptions()

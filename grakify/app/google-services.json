@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "806398262858",
+    "firebase_url": "https://grakify.firebaseio.com",
+    "project_id": "grakify",
+    "storage_bucket": "grakify.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806398262858:android:9df566eafbdeb0c5",
+        "android_client_info": {
+          "package_name": "com.andrianm28.grakify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806398262858-fhcm56do3gntqephc23hipru8t9jmc7u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.andrianm28.grakify",
+            "certificate_hash": "fd5b70a66784756fc32a7ecc053bd1a3d731f2c3"
+          }
+        },
+        {
+          "client_id": "806398262858-6q02nfbrfvpshl5381vvrh6o205furn1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqxMZHm6xeh8O-0Wfyj_ig6WbRLAdV8HA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "806398262858-6q02nfbrfvpshl5381vvrh6o205furn1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

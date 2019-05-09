@@ -5,7 +5,9 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorMain</item>
+        <item name="actionMenuTextColor">@color/colorMain</item>
+        <item name="android:actionMenuTextColor">@color/colorMain</item>
     </style>
 
     <!--Style for Splash Screen-->
