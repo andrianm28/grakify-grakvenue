@@ -18,7 +18,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class VenueActivity extends AppCompatActivity {
     private static final String TAG = "VenueActivity";
@@ -135,17 +137,20 @@ public class VenueActivity extends AppCompatActivity {
                 getIntent().hasExtra("venue_name")&&
                         getIntent().hasExtra("venue_address")&&
                         getIntent().hasExtra("venue_image")&&
-                        getIntent().hasExtra("venue_summary")
+                        getIntent().hasExtra("venue_summary")&&
+                        getIntent().hasExtra("venue_price")
             ){
             Log.d(TAG, "getIncomingIntent: found intent extras.");
             String venue_name = getIntent().getStringExtra("venue_name");
             String venue_address= getIntent().getStringExtra("venue_address");
             String venue_image = getIntent().getStringExtra("venue_image");
             String venue_summary = getIntent().getStringExtra("venue_summary");
-            setVenue(venue_name,venue_address,venue_summary,venue_image);
+            int sum = 0;
+            int venue_price = getIntent().getIntExtra("venue_price",sum);
+            setVenue(venue_name,venue_address,venue_summary,venue_image,venue_price);
         }
     }
-    private void setVenue(String venue_name,String venue_address,String venue_summary, String venue_image){
+    private void setVenue(String venue_name,String venue_address,String venue_summary, String venue_image,int venue_price){
         Log.d(TAG, "setVenue: setting venue data to widgets.");
         TextView tvVenue_name = findViewById(R.id.venue_name);
         tvVenue_name.setText(venue_name);
@@ -153,6 +158,11 @@ public class VenueActivity extends AppCompatActivity {
         tvVenue_address.setText(venue_address);
 //        TextView tvVenue_summary = findViewById(R.id.venue_summary);
 //        tvVenue_summary.setText(venue_summary);
+        TextView tvVenue_price = findViewById(R.id.venue_price);
+
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        tvVenue_price.setText(formatRupiah.format((int)venue_price));
 
         ImageView ivVenue_image = findViewById(R.id.venue_image);
         Glide.with(this)

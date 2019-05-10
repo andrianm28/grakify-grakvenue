@@ -2,22 +2,30 @@ package com.andrianm28.grakify;
 
 public class Venue {
     private String venue_name;
-    private String venue_location;
     private String venue_summary;
     private String venue_address;
     private String venue_image;
+    private int venue_price;
 
 
-    public Venue(){
+    public Venue() {
 
     }
 
-    public Venue(String venue_name,String venue_location,String venue_summary, String venue_address, String venue_image){
+    public Venue(String venue_name, String venue_summary, String venue_address, String venue_image, int venue_price) {
         this.venue_name = venue_name;
-        this.venue_location = venue_location;
         this.venue_summary = venue_summary;
         this.venue_address = venue_address;
         this.venue_image = venue_image;
+        this.venue_price = venue_price;
+    }
+
+    public int getVenue_price() {
+        return venue_price;
+    }
+
+    public void setVenue_price(int venue_price) {
+        this.venue_price = venue_price;
     }
 
     public String getVenue_name() {
@@ -42,14 +50,6 @@ public class Venue {
 
     public void setVenue_address(String venue_address) {
         this.venue_address = venue_address;
-    }
-
-    public String getVenue_location() {
-        return venue_location;
-    }
-
-    public void setVenue_location(String venue_location) {
-        this.venue_location = venue_location;
     }
 
     public String getVenue_image() {

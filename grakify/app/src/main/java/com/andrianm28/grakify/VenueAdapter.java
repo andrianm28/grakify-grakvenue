@@ -18,6 +18,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.auth.User;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.VenueHolder> {
 
     private static final String TAG = "VenueAdapter";
@@ -34,6 +37,9 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
         Log.d(TAG, "onBindViewHolder: called");
         holder.tvVenue_name.setText(model.getVenue_name());
         holder.tvVenue_address.setText(model.getVenue_address());
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        holder.tvVenue_price.setText(formatRupiah.format((int)model.getVenue_price()));
         Glide.with(mContext)
                 .asBitmap()
                 .load(model.getVenue_image())
@@ -51,6 +57,8 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
                 intent.putExtra("venue_address",model.getVenue_address());
                 intent.putExtra("venue_summary",model.getVenue_summary());
                 intent.putExtra("venue_image",model.getVenue_image());
+                System.out.println(model.getVenue_price());
+                intent.putExtra("venue_price",model.getVenue_price());
                 mContext.startActivity(intent);
             }
         });
@@ -67,6 +75,7 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
     class VenueHolder extends RecyclerView.ViewHolder{
         TextView tvVenue_name;
         TextView tvVenue_address;
+        TextView tvVenue_price;
         ImageView ivVenue_image;
         RelativeLayout parentLayout;
 
@@ -74,6 +83,7 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
             super(itemView);
             tvVenue_name= itemView.findViewById(R.id.venue_name);
             tvVenue_address= itemView.findViewById(R.id.venue_address);
+            tvVenue_price= itemView.findViewById(R.id.venue_price);
             ivVenue_image= itemView.findViewById(R.id.venue_image);
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
