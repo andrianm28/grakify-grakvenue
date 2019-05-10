@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="match_parent" android:layout_width="match_parent">
 
-    <item android:drawable="@color/colorPrimary"/>
+    <item android:drawable="@android:color/white"/>
 
     <!-- Set the Background Image-->
-    <item android:gravity="center" android:width="500dp" android:height="700dp">
+    <item android:gravity="center" android:width="332dp" android:height="88dp">
         <bitmap
-            android:gravity="start"
-            android:src="@drawable/logo_splash"
+            android:gravity="fill_horizontal|fill_vertical"
+            android:src="@drawable/logo_lengkap"
             />
     </item>
 </layer-list>
