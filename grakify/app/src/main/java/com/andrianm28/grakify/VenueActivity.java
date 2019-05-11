@@ -80,8 +80,8 @@ public class VenueActivity extends AppCompatActivity {
         fab_clock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_clock);
         fab_anticlock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_anticlock);
 
-        textview_mail = (TextView) findViewById(R.id.textview_mail);
-        textview_share = (TextView) findViewById(R.id.textview_share);
+        textview_mail = (TextView) findViewById(R.id.tvCall);
+        textview_share = (TextView) findViewById(R.id.tvDirection);
 
         fab_main.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -37,7 +37,7 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
         holder.tvVenue_address.setText(model.getVenue_address());
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        holder.tvVenue_price.setText(formatRupiah.format((int)model.getVenue_price()));
+//        holder.tvVenue_price.setText(formatRupiah.format((int)model.getVenue_price()));
 
         Glide.with(mContext)
                 .load(model.getVenue_image())

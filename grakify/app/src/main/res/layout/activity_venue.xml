@@ -16,7 +16,7 @@
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
                 android:id="@+id/card1"
                 app:cardElevation="4dp"
                 app:cardUseCompatPadding="true"
@@ -38,6 +38,7 @@
                 app:cardUseCompatPadding="true"
                 app:cardCornerRadius="4dp"
                 >
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -47,9 +48,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="45dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:textColor="#000000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -57,17 +57,50 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/rel1"
-                        android:layout_below="@id/venue_name">
+                        android:layout_below="@id/venue_name"
+                        android:id="@+id/venue_summary_container"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="10dp"
+                        >
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/person_icon"
+                            android:layout_alignParentStart="true"
+                            android:src="@drawable/ic_person_main_24dp"
+                            android:layout_marginEnd="10dp"
+                            />
+                        <TextView
+                            android:id="@+id/venue_summary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/person_icon"
+                            android:layout_centerVertical="true"
+                            android:textAlignment="textStart"
+                            android:textSize="14sp"
+                            />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/venue_address_container"
+                        android:layout_below="@id/venue_summary_container"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="10dp"
+                        >
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
                             android:layout_centerVertical="true"
                             android:id="@+id/address_icon"
                             android:layout_alignParentStart="true"
                             android:src="@drawable/ic_place_main_24dp"
+                            android:layout_marginEnd="10dp"
                             />
 
                         <TextView
@@ -76,8 +109,6 @@
                             android:layout_height="wrap_content"
                             android:layout_toEndOf="@id/address_icon"
                             android:layout_centerVertical="true"
-                            android:layout_marginTop="10sp"
-                            android:layout_marginEnd="10dp"
                             android:textAlignment="textStart"
                             android:textSize="14sp"
                             />
@@ -87,48 +118,31 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/rel2"
-                        android:layout_below="@id/rel1">
-
-
+                        android:layout_below="@id/venue_address_container"
+                        android:id="@+id/venue_price_container"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="10dp"
+                        >
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
                             android:layout_centerVertical="true"
-                            android:id="@+id/category_icon"
+                            android:id="@+id/currency_icon"
                             android:layout_alignParentStart="true"
-                            android:src="@drawable/ic_category_icon_24dp"
+                            android:src="@drawable/ic_monetization_on_main_24dp"
+                            android:layout_marginEnd="10dp"
                             />
-
                         <TextView
+                            android:id="@+id/venue_price_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginTop="10sp"
                             android:layout_marginEnd="10dp"
-                            android:text="Futsal"
-                            android:layout_toEndOf="@id/category_icon"
+                            android:layout_toEndOf="@id/currency_icon"
+                            android:text="Start from :"
                             />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/rel2">
-
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:layout_centerVertical="true"
-                            android:id="@+id/currency_icon"
-                            android:layout_alignParentStart="true"
-                            android:src="@drawable/ic_attach_money_main_24dp"
-                            />
-
                         <TextView
                             android:id="@+id/venue_price"
                             android:layout_width="wrap_content"
@@ -136,12 +150,43 @@
                             android:layout_centerVertical="true"
                             android:layout_marginTop="10sp"
                             android:layout_marginEnd="10dp"
-                            android:layout_toEndOf="@id/currency_icon"
+                            android:layout_toEndOf="@id/venue_price_label"
                             />
-
                     </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/venue_price_container"
+                        android:id="@+id/venue_phone_container"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="10dp"
+                        >
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/phone_icon"
+                            android:layout_alignParentStart="true"
+                            android:src="@drawable/ic_phone_main_24dp"
+                            android:layout_marginEnd="10dp"
+                            />\
+                        <TextView
+                            android:id="@+id/venue_phone"
+                            android:text="082278911288"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_toEndOf="@id/phone_icon"
+                            />
+                    </RelativeLayout>
+
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
+
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -151,7 +196,7 @@
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="300dp">
                     <fragment
                         android:name="com.google.android.gms.maps.SupportMapFragment"
                         android:layout_width="match_parent"

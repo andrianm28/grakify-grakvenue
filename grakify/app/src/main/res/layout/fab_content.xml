@@ -5,7 +5,8 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textview_share"
+        android:id="@+id/tvCall"
+        android:text="Call"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -32,10 +33,11 @@
         android:visibility="invisible"
         app:backgroundTint="#ffffff"
         app:pressedTranslationZ="12dp"
-        app:srcCompat="@drawable/ic_share_main_24dp" />
+        app:srcCompat="@drawable/ic_phone_main_24dp" />
 
     <TextView
-        android:id="@+id/textview_mail"
+        android:id="@+id/tvDirection"
+        android:text="Direction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -63,7 +65,7 @@
         android:visibility="invisible"
         app:backgroundTint="#ffffff"
         app:pressedTranslationZ="12dp"
-        app:srcCompat="@drawable/ic_mail_outline_main_24dp" />
+        app:srcCompat="@drawable/ic_directions_main_24dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
