@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -159,16 +160,14 @@ public class VenueActivity extends AppCompatActivity {
 //        TextView tvVenue_summary = findViewById(R.id.venue_summary);
 //        tvVenue_summary.setText(venue_summary);
         TextView tvVenue_price = findViewById(R.id.venue_price);
-
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         tvVenue_price.setText(formatRupiah.format((int)venue_price));
-
         ImageView ivVenue_image = findViewById(R.id.venue_image);
         Glide.with(this)
-                .asBitmap()
                 .load(venue_image)
-                .into(ivVenue_image);
+                .into(ivVenue_image)
+        ;
 
         setTitle(venue_name);
     }
