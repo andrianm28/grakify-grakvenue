@@ -1,12 +1,11 @@
 package com.andrianm28.grakify;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import com.bumptech.glide.Glide;
+import android.support.v7.app.AppCompatActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
+    private static final String TAG = "SplashScreenActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

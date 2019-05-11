@@ -1,4 +1,5 @@
 package com.andrianm28.grakify;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
@@ -16,9 +16,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 public class CardFragment extends Fragment {
+    private static final String TAG = "CardFragment";
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference venueRef = db.collection("venue");
+    private CollectionReference venueRef = db.collection("venues");
 
     private VenueAdapter adapter;
     private RecyclerView recyclerView;

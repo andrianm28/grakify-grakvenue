@@ -1,6 +1,7 @@
 package com.andrianm28.grakify;
 
 public class Venue {
+    private static final String TAG = "Venue";
     private String venue_name;
     private String venue_summary;
     private String venue_address;

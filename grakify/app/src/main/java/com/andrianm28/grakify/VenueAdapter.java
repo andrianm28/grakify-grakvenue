@@ -16,13 +16,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.auth.User;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
 public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.VenueHolder> {
-
     private static final String TAG = "VenueAdapter";
     private Context mContext;
 
