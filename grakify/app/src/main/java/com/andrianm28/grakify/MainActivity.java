@@ -87,9 +87,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = new SearchFragment();
                 setTitle("Search");
                 break;
-            case R.id.Account:
-                fragment = new AccountFragment();
-                setTitle("Account");
+            case R.id.setting:
+                fragment = new SettingFragment();
+                setTitle("setting");
                 break;
         }
         return loadFragment(fragment);
