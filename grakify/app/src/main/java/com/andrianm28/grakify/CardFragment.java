@@ -21,6 +21,7 @@ public class CardFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference venueRef = db.collection("venues");
 
+
     private VenueAdapter adapter;
     private RecyclerView recyclerView;
 

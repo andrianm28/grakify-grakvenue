@@ -138,31 +138,41 @@ public class VenueActivity extends AppCompatActivity {
                 getIntent().hasExtra("venue_name")&&
                         getIntent().hasExtra("venue_address")&&
                         getIntent().hasExtra("venue_image")&&
-                        getIntent().hasExtra("venue_summary")&&
-                        getIntent().hasExtra("venue_price")
+                        getIntent().hasExtra("venue_desc")&&
+                        getIntent().hasExtra("venue_price")&&
+                        getIntent().hasExtra("venue_contact")
             ){
             Log.d(TAG, "getIncomingIntent: found intent extras.");
             String venue_name = getIntent().getStringExtra("venue_name");
             String venue_address= getIntent().getStringExtra("venue_address");
             String venue_image = getIntent().getStringExtra("venue_image");
-            String venue_summary = getIntent().getStringExtra("venue_summary");
-            int sum = 0;
-            int venue_price = getIntent().getIntExtra("venue_price",sum);
-            setVenue(venue_name,venue_address,venue_summary,venue_image,venue_price);
+            String venue_desc = getIntent().getStringExtra("venue_desc");
+            int venuePrice = 0;
+            double venueContact = 0;
+            int venue_price = getIntent().getIntExtra("venue_price",venuePrice);
+            double venue_contact = getIntent().getDoubleExtra("venue_contact",venueContact);
+            setVenue(venue_name,venue_address,venue_desc,venue_image,venue_price,venue_contact);
         }
     }
-    private void setVenue(String venue_name,String venue_address,String venue_summary, String venue_image,int venue_price){
+    private void setVenue(String venue_name,String venue_address,String venue_desc, String venue_image,int venue_price, double venue_contact ){
         Log.d(TAG, "setVenue: setting venue data to widgets.");
         TextView tvVenue_name = findViewById(R.id.venue_name);
         tvVenue_name.setText(venue_name);
         TextView tvVenue_address= findViewById(R.id.venue_address);
         tvVenue_address.setText(venue_address);
-//        TextView tvVenue_summary = findViewById(R.id.venue_summary);
-//        tvVenue_summary.setText(venue_summary);
-        TextView tvVenue_price = findViewById(R.id.venue_price);
+//        TextView tvvenue_desc = findViewById(R.id.venue_desc);
+//        tvvenue_desc.setText(venue_desc);
+
+//        double string contact
+        int vContact = (int) venue_contact;
+        TextView tvVenue_contact = findViewById(R.id.venue_contact);
+        tvVenue_contact.setText(String.valueOf(vContact));
         Locale localeID = new Locale("in", "ID");
+//        int price
+        TextView tvVenue_price = findViewById(R.id.venue_price);
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         tvVenue_price.setText(formatRupiah.format((int)venue_price));
+//        image image
         ImageView ivVenue_image = findViewById(R.id.venue_image);
         Glide.with(this)
                 .load(venue_image)

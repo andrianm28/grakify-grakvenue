@@ -38,6 +38,7 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 //        holder.tvVenue_price.setText(formatRupiah.format((int)model.getVenue_price()));
+//        holder.tvVenue_contact.setText(String.valueOf(model.setVenue_contact()));
 
         Glide.with(mContext)
                 .load(model.getVenue_image())
@@ -53,10 +54,10 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
                 Intent intent = new Intent(mContext,VenueActivity.class);
                 intent.putExtra("venue_name",model.getVenue_name());
                 intent.putExtra("venue_address",model.getVenue_address());
-                intent.putExtra("venue_summary",model.getVenue_summary());
+                intent.putExtra("venue_desc",model.getvenue_desc());
                 intent.putExtra("venue_image",model.getVenue_image());
-                System.out.println(model.getVenue_price());
                 intent.putExtra("venue_price",model.getVenue_price());
+                intent.putExtra("venue_contact",model.getVenue_contact());
                 mContext.startActivity(intent);
             }
         });
@@ -74,6 +75,7 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
         TextView tvVenue_name;
         TextView tvVenue_address;
         TextView tvVenue_price;
+        TextView tvVenue_contact;
         ImageView ivVenue_image;
         RelativeLayout parentLayout;
 
@@ -82,6 +84,7 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
             tvVenue_name= itemView.findViewById(R.id.venue_name);
             tvVenue_address= itemView.findViewById(R.id.venue_address);
             tvVenue_price= itemView.findViewById(R.id.venue_price);
+            tvVenue_contact= itemView.findViewById(R.id.venue_contact);
             ivVenue_image= itemView.findViewById(R.id.venue_image);
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
