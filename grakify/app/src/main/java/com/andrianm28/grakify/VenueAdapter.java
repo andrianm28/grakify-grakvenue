@@ -33,18 +33,15 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
     @Override
     protected void onBindViewHolder(@NonNull VenueHolder holder, int position, @NonNull final Venue model) {
         Log.d(TAG, "onBindViewHolder: called");
-        holder.tvVenue_name.setText(model.getVenue_name());
-        holder.tvVenue_address.setText(model.getVenue_address());
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-//        holder.tvVenue_price.setText(formatRupiah.format((int)model.getVenue_price()));
-//        holder.tvVenue_contact.setText(String.valueOf(model.setVenue_contact()));
+        System.out.println("longitutde"+model.getVenue_geo().getLongitude());
+        holder.tv_venue_name.setText(model.getVenue_name());
+        holder.tv_venue_address.setText(model.getVenue_address());
 
         Glide.with(mContext)
                 .load(model.getVenue_image())
-                .into(holder.ivVenue_image);
+                .into(holder.iv_venue_image);
 
-        holder.parentLayout.setOnClickListener(new View.OnClickListener(){
+        holder.lt_parent.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
@@ -54,10 +51,12 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
                 Intent intent = new Intent(mContext,VenueActivity.class);
                 intent.putExtra("venue_name",model.getVenue_name());
                 intent.putExtra("venue_address",model.getVenue_address());
-                intent.putExtra("venue_desc",model.getvenue_desc());
+                intent.putExtra("venue_desc",model.getVenue_desc());
                 intent.putExtra("venue_image",model.getVenue_image());
                 intent.putExtra("venue_price",model.getVenue_price());
-                intent.putExtra("venue_contact",model.getVenue_contact());
+                intent.putExtra("venue_phone",model.getVenue_phone());
+                intent.putExtra("venue_geo_lt",model.getVenue_geo().getLatitude());
+                intent.putExtra("venue_geo_lg",model.getVenue_geo().getLongitude());
                 mContext.startActivity(intent);
             }
         });
@@ -72,21 +71,21 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
     }
 
     class VenueHolder extends RecyclerView.ViewHolder{
-        TextView tvVenue_name;
-        TextView tvVenue_address;
-        TextView tvVenue_price;
-        TextView tvVenue_contact;
-        ImageView ivVenue_image;
-        RelativeLayout parentLayout;
+        TextView tv_venue_name;
+        TextView tv_venue_address;
+        TextView tv_venue_price;
+        TextView tv_venue_phone;
+        ImageView iv_venue_image;
+        RelativeLayout lt_parent;
 
         VenueHolder(View itemView){
             super(itemView);
-            tvVenue_name= itemView.findViewById(R.id.venue_name);
-            tvVenue_address= itemView.findViewById(R.id.venue_address);
-            tvVenue_price= itemView.findViewById(R.id.venue_price);
-            tvVenue_contact= itemView.findViewById(R.id.venue_contact);
-            ivVenue_image= itemView.findViewById(R.id.venue_image);
-            parentLayout = itemView.findViewById(R.id.parent_layout);
+            tv_venue_name= itemView.findViewById(R.id.venue_name);
+            tv_venue_address= itemView.findViewById(R.id.venue_address);
+            tv_venue_price= itemView.findViewById(R.id.venue_price);
+            tv_venue_phone= itemView.findViewById(R.id.venue_phone);
+            iv_venue_image= itemView.findViewById(R.id.venue_image);
+            lt_parent = itemView.findViewById(R.id.parent_layout);
         }
     }
 }

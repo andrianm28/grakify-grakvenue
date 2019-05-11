@@ -1,34 +1,52 @@
 package com.andrianm28.grakify;
 
+import com.google.firebase.firestore.GeoPoint;
+
 public class Venue {
     private static final String TAG = "Venue";
+    private int id;
     private String venue_name;
     private String venue_desc;
     private String venue_address;
     private String venue_image;
     private int venue_price;
-    private double venue_contact;
+    private String venue_phone;
+    private GeoPoint venue_geo;
 
 
     public Venue() {
 
     }
 
-    public Venue(String venue_name, String venue_desc, String venue_address, String venue_image, int venue_price, double venue_contact) {
+    public Venue(
+            int id,
+            String venue_name,
+            String venue_desc,
+            String venue_address,
+            String venue_image,
+            int venue_price,
+            String venue_phone,
+            GeoPoint venue_geo
+    ) {
+        this.id = id;
         this.venue_name = venue_name;
         this.venue_desc = venue_desc;
         this.venue_address = venue_address;
         this.venue_image = venue_image;
         this.venue_price = venue_price;
-        this.venue_contact = venue_contact;
+        this.venue_phone = venue_phone;
     }
 
-    public int getVenue_price() {
-        return venue_price;
+    public static String getTAG() {
+        return TAG;
     }
 
-    public void setVenue_price(int venue_price) {
-        this.venue_price = venue_price;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getVenue_name() {
@@ -39,11 +57,11 @@ public class Venue {
         this.venue_name = venue_name;
     }
 
-    public String getvenue_desc() {
+    public String getVenue_desc() {
         return venue_desc;
     }
 
-    public void setvenue_desc(String venue_desc) {
+    public void setVenue_desc(String venue_desc) {
         this.venue_desc = venue_desc;
     }
 
@@ -63,11 +81,27 @@ public class Venue {
         this.venue_image = venue_image;
     }
 
-    public double getVenue_contact() {
-        return venue_contact;
+    public int getVenue_price() {
+        return venue_price;
     }
 
-    public void setVenue_contact(double venue_contact) {
-        this.venue_contact = venue_contact;
+    public void setVenue_price(int venue_price) {
+        this.venue_price = venue_price;
+    }
+
+    public String getVenue_phone() {
+        return venue_phone;
+    }
+
+    public void setVenue_phone(String venue_phone) {
+        this.venue_phone = venue_phone;
+    }
+
+    public GeoPoint getVenue_geo() {
+        return venue_geo;
+    }
+
+    public void setVenue_geo(GeoPoint venue_geo) {
+        this.venue_geo = venue_geo;
     }
 }

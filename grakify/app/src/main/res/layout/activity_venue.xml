@@ -7,7 +7,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/main_scrollview">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -158,7 +159,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/venue_price_container"
-                        android:id="@+id/venue_contact_container"
+                        android:id="@+id/venue_phone_container"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="10dp"
                         android:layout_marginStart="10dp"
@@ -167,19 +168,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:id="@+id/contact_icon"
+                            android:id="@+id/phone_icon"
                             android:layout_alignParentStart="true"
                             android:src="@drawable/ic_phone_main_24dp"
                             android:layout_marginEnd="10dp"
                             />
                         <TextView
-                            android:id="@+id/venue_contact"
+                            android:id="@+id/venue_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginTop="10sp"
                             android:layout_marginEnd="10dp"
-                            android:layout_toEndOf="@id/contact_icon"
+                            android:layout_toEndOf="@id/phone_icon"
                             />
                     </RelativeLayout>
 
@@ -197,10 +198,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp">
                     <fragment
-                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:id="@+id/map_fragment"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/map" />
+                        android:layout_marginTop="-100dp"
+                        android:layout_marginBottom="-100dp"
+                        class="com.google.android.gms.maps.SupportMapFragment"/>
+                    <ImageView
+                        android:id="@+id/transparent_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"/>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>

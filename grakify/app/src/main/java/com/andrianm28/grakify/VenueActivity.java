@@ -1,23 +1,36 @@
 package com.andrianm28.grakify;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -28,9 +41,9 @@ public class VenueActivity extends AppCompatActivity {
     private Activity activity;
 
     //FAB
-    private FloatingActionButton fab_main, fab1_mail, fab2_share;
+    private FloatingActionButton fab_main, fab_call, fab_direction;
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
-    TextView textview_mail, textview_share;
+    TextView tv_fab_call, tv_fab_direction;
     Boolean isOpen = false;
 
     @Override
@@ -42,12 +55,41 @@ public class VenueActivity extends AppCompatActivity {
         getIncomingIntent();
         centerTitle();
 
+        final ScrollView mainScrollView = findViewById(R.id.main_scrollview);
+        ImageView transparentImageView = findViewById(R.id.transparent_image);
+
+        transparentImageView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        mainScrollView.requestDisallowInterceptTouchEvent(true);
+                        // Disable touch on transparent view
+                        return false;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        mainScrollView.requestDisallowInterceptTouchEvent(false);
+                        return true;
+
+                    case MotionEvent.ACTION_MOVE:
+                        mainScrollView.requestDisallowInterceptTouchEvent(true);
+                        return false;
+
+                    default:
+                        return true;
+                }
+            }
+        });
+
     }
+
     private void centerTitle() {
         ArrayList<View> textViews = new ArrayList<>();
-
         getWindow().getDecorView().findViewsWithText(textViews, getTitle(), View.FIND_VIEWS_WITH_TEXT);
-
         if(textViews.size() > 0) {
             AppCompatTextView appCompatTextView = null;
             if(textViews.size() == 1) {
@@ -60,7 +102,6 @@ public class VenueActivity extends AppCompatActivity {
                     }
                 }
             }
-
             if(appCompatTextView != null) {
                 ViewGroup.LayoutParams params = appCompatTextView.getLayoutParams();
                 params.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -71,65 +112,56 @@ public class VenueActivity extends AppCompatActivity {
     }
 
     private void setFAB(){
-
         fab_main = findViewById(R.id.fab);
-        fab1_mail = findViewById(R.id.fab1);
-        fab2_share = findViewById(R.id.fab2);
+        fab_call = findViewById(R.id.fab_call);
+        fab_direction = findViewById(R.id.fab_direction);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_clock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_clock);
         fab_anticlock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_anticlock);
-
-        textview_mail = (TextView) findViewById(R.id.tvCall);
-        textview_share = (TextView) findViewById(R.id.tvDirection);
-
+        tv_fab_call = (TextView) findViewById(R.id.tv_fab_call);
+        tv_fab_direction = (TextView) findViewById(R.id.tv_fab_direction);
         fab_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (isOpen) {
-
-                    textview_mail.setVisibility(View.INVISIBLE);
-                    textview_share.setVisibility(View.INVISIBLE);
-                    fab2_share.startAnimation(fab_close);
-                    fab1_mail.startAnimation(fab_close);
+                    tv_fab_call.setVisibility(View.INVISIBLE);
+                    tv_fab_direction.setVisibility(View.INVISIBLE);
+                    fab_direction.startAnimation(fab_close);
+                    fab_call.startAnimation(fab_close);
                     fab_main.startAnimation(fab_anticlock);
-                    fab2_share.setClickable(false);
-                    fab1_mail.setClickable(false);
+                    fab_direction.setClickable(false);
+                    fab_call.setClickable(false);
                     isOpen = false;
                 } else {
-                    textview_mail.setVisibility(View.VISIBLE);
-                    textview_share.setVisibility(View.VISIBLE);
-                    fab2_share.startAnimation(fab_open);
-                    fab1_mail.startAnimation(fab_open);
+                    tv_fab_call.setVisibility(View.VISIBLE);
+                    tv_fab_direction.setVisibility(View.VISIBLE);
+                    fab_direction.startAnimation(fab_open);
+                    fab_call.startAnimation(fab_open);
                     fab_main.startAnimation(fab_clock);
-                    fab2_share.setClickable(true);
-                    fab1_mail.setClickable(true);
+                    fab_direction.setClickable(true);
+                    fab_call.setClickable(true);
                     isOpen = true;
                 }
-
             }
         });
-
-
-        fab2_share.setOnClickListener(new View.OnClickListener() {
+        fab_direction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Share", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(getApplicationContext(), "Calling", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("+6289647045539"));
+                startActivity(intent);
+                //TODO call dialer 
             }
         });
 
-        fab1_mail.setOnClickListener(new View.OnClickListener() {
+        fab_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Email", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(getApplicationContext(), "Get Direction", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-    public void onAttach(Activity activity){
-        this.activity = activity;
     }
 
     private void getIncomingIntent(){
@@ -140,7 +172,9 @@ public class VenueActivity extends AppCompatActivity {
                         getIntent().hasExtra("venue_image")&&
                         getIntent().hasExtra("venue_desc")&&
                         getIntent().hasExtra("venue_price")&&
-                        getIntent().hasExtra("venue_contact")
+                        getIntent().hasExtra("venue_phone")&&
+                        getIntent().hasExtra("venue_geo_lt")&&
+                        getIntent().hasExtra("venue_geo_lg")
             ){
             Log.d(TAG, "getIncomingIntent: found intent extras.");
             String venue_name = getIntent().getStringExtra("venue_name");
@@ -148,45 +182,76 @@ public class VenueActivity extends AppCompatActivity {
             String venue_image = getIntent().getStringExtra("venue_image");
             String venue_desc = getIntent().getStringExtra("venue_desc");
             int venuePrice = 0;
-            double venueContact = 0;
             int venue_price = getIntent().getIntExtra("venue_price",venuePrice);
-            double venue_contact = getIntent().getDoubleExtra("venue_contact",venueContact);
-            setVenue(venue_name,venue_address,venue_desc,venue_image,venue_price,venue_contact);
+            String venue_phone = getIntent().getStringExtra("venue_phone");
+            double vglt=0,vglg=0;
+            double venue_geo_lt = (double) getIntent().getDoubleExtra("venue_geo_lt",vglt);
+            double venue_geo_lg = (double) getIntent().getDoubleExtra("venue_geo_lg",vglg);
+
+            setVenue(venue_name,venue_address,venue_desc,venue_image,venue_price,venue_phone,venue_geo_lt,venue_geo_lg);
         }
     }
-    private void setVenue(String venue_name,String venue_address,String venue_desc, String venue_image,int venue_price, double venue_contact ){
-        Log.d(TAG, "setVenue: setting venue data to widgets.");
-        TextView tvVenue_name = findViewById(R.id.venue_name);
-        tvVenue_name.setText(venue_name);
-        TextView tvVenue_address= findViewById(R.id.venue_address);
-        tvVenue_address.setText(venue_address);
-//        TextView tvvenue_desc = findViewById(R.id.venue_desc);
-//        tvvenue_desc.setText(venue_desc);
 
-//        double string contact
-        int vContact = (int) venue_contact;
-        TextView tvVenue_contact = findViewById(R.id.venue_contact);
-        tvVenue_contact.setText(String.valueOf(vContact));
-        Locale localeID = new Locale("in", "ID");
-//        int price
-        TextView tvVenue_price = findViewById(R.id.venue_price);
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        tvVenue_price.setText(formatRupiah.format((int)venue_price));
-//        image image
-        ImageView ivVenue_image = findViewById(R.id.venue_image);
+    private void setVenue(
+            final String venue_name,
+            final String venue_address,
+            String venue_desc,
+            String venue_image,
+            int venue_price,
+            String venue_phone,
+            final double venue_geo_lt,
+            final double venue_geo_lg){
+        Log.d(TAG, "setVenue: setting venue data to widgets.");
+
+        TextView tv_venue_name = findViewById(R.id.venue_name);
+        tv_venue_name.setText(venue_name);
+        setTitle(venue_name);
+
+        TextView tv_venue_desc = findViewById(R.id.venue_desc);
+        tv_venue_desc.setText(venue_desc);
+
+        TextView tv_venue_address= findViewById(R.id.venue_address);
+        tv_venue_address.setText(venue_address);
+
+        ImageView iv_venue_image = findViewById(R.id.venue_image);
         Glide.with(this)
                 .load(venue_image)
-                .into(ivVenue_image)
+                .into(iv_venue_image)
         ;
 
-        setTitle(venue_name);
-    }
+        Locale localeID = new Locale("in", "ID");
+        TextView tv_venue_price = findViewById(R.id.venue_price);
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        tv_venue_price.setText(formatRupiah.format(venue_price));
 
-    public Activity getActivity() {
-        return activity;
-    }
+        TextView tv_venue_phone = findViewById(R.id.venue_phone);
+        tv_venue_phone.setText(venue_phone);
 
-    public void setActivity(Activity activity) {
-        this.activity = activity;
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map_fragment);
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap mMap) {
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+                mMap.clear(); //clear old markers
+
+                CameraPosition venue_geo = CameraPosition.builder()
+                        .target(new LatLng(venue_geo_lt, venue_geo_lg))
+                        .zoom(18)
+                        .bearing(0)
+                        .build();
+                System.out.println(venue_geo_lt);
+                System.out.println(venue_geo_lg);
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(venue_geo), 2000, null);
+
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(venue_geo_lt, venue_geo_lg))
+                        .title(venue_name)
+                        .snippet(venue_address)
+                );
+                marker.showInfoWindow();
+            }
+        });
     }
 }

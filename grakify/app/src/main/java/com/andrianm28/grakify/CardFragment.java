@@ -19,7 +19,7 @@ public class CardFragment extends Fragment {
     private static final String TAG = "CardFragment";
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference venueRef = db.collection("venues");
+    private CollectionReference venueRef = db.collection("venue");
 
 
     private VenueAdapter adapter;

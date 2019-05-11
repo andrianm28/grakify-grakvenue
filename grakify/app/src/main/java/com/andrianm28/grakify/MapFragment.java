@@ -65,28 +65,8 @@ public class MapFragment extends Fragment {
                         .title("Itera")
                         .snippet("Institut Teknologi Sumtera")
                         );
-
-//                mMap.addMarker(new MarkerOptions()
-//                        .position(new LatLng(37.4629101,-122.2449094))
-//                        .title("Iron Man")
-//                        .snippet("His Talent : Plenty of money"));
-//
-//                mMap.addMarker(new MarkerOptions()
-//                        .position(new LatLng(37.3092293,-122.1136845))
-//                        .title("Captain America"));
             }
         });
-
-
         return rootView;
-    }
-
-    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
-        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
-        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
-        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        vectorDrawable.draw(canvas);
-        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 }
