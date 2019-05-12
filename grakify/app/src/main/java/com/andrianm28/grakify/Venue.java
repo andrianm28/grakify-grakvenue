@@ -2,15 +2,24 @@ package com.andrianm28.grakify;
 
 import com.google.firebase.firestore.GeoPoint;
 
+import javax.annotation.Nullable;
+
 public class Venue {
     private static final String TAG = "Venue";
     private int id;
+    @Nullable
     private String venue_name;
+    @Nullable
     private String venue_desc;
+    @Nullable
     private String venue_address;
+    @Nullable
     private String venue_image;
+    @Nullable
     private int venue_price;
+    @Nullable
     private String venue_phone;
+    @Nullable
     private GeoPoint venue_geo;
 
 

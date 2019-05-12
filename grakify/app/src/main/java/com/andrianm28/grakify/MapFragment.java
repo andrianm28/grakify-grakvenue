@@ -1,6 +1,7 @@
 package com.andrianm28.grakify;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,7 +34,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class MapFragment extends Fragment {
@@ -43,7 +47,8 @@ public class MapFragment extends Fragment {
     private CollectionReference venueRef = db.collection("venue");
 
     ArrayList<Venue> list = new ArrayList<Venue>();
-    GoogleMap mMap;
+    private Map<Marker, Integer> markersOrderNumbers = new HashMap<>();
+    private int markerIndex = 0;
 
     public MapFragment() {
         // Required empty public constructor
@@ -119,7 +124,7 @@ public class MapFragment extends Fragment {
 
                 CameraPosition googlePlex = CameraPosition.builder()
                         .target(new LatLng(-5.357432, 105.314803))
-                        .zoom(18)
+                        .zoom(14)
                         .bearing(0)
                         .tilt(45)
                         .build();
@@ -147,12 +152,15 @@ public class MapFragment extends Fragment {
                                         document.get("venue_image").toString(),
                                         123,
                                         document.get("venue_phone").toString(),
-                                        (GeoPoint) document.get("venue_geo")
+                                        ((GeoPoint) document.get("venue_geo"))
                                 ));
                                 Log.d(TAG, "LATLONG" + latLng.toString());
-                                mMap.addMarker(new MarkerOptions()
+                                Marker marker = mMap.addMarker(new MarkerOptions()
                                         .position(latLng)
+                                        .title(document.get("venue_name").toString())
                                 );
+                                markersOrderNumbers.put(marker, markerIndex);
+                                markerIndex++;
                             }
 
                             Log.d(TAG, "JUMLAH LIST " + list.size());
@@ -160,9 +168,24 @@ public class MapFragment extends Fragment {
                     }
                 });
 
-//                for (int i=0; i<list.size(); i++ ){
-//
-//                }
+             mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                 @Override
+                 public void onInfoWindowClick(Marker marker) {
+                     Integer index = markersOrderNumbers.get(marker);
+                     Intent intent = new Intent(getActivity(),VenueActivity.class);
+                     model = list.get(index);
+                     Log.d(TAG, "KLIKMARKER: " + index);
+                     intent.putExtra("venue_name",model.getVenue_name());
+                     intent.putExtra("venue_address",model.getVenue_address());
+                     intent.putExtra("venue_desc",model.getVenue_desc());
+                     intent.putExtra("venue_image",model.getVenue_image());
+                     intent.putExtra("venue_price",model.getVenue_price());
+                     intent.putExtra("venue_phone",model.getVenue_phone());
+                     intent.putExtra("venue_geo_lt",-5.4036551);
+                     intent.putExtra("venue_geo_lg",105.2272932);
+                     startActivity(intent);
+                 }
+             });
 
             }
         });
