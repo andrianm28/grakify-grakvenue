@@ -150,9 +150,10 @@ public class VenueActivity extends AppCompatActivity {
         fab_direction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG, "onClick: Calling ");
                 Toast.makeText(getApplicationContext(), "Calling", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("+6289647045539"));
+                intent.setData(Uri.parse("tel:"+getIntent().getStringExtra("venue_phone")));
                 startActivity(intent);
                 //TODO call dialer
             }
