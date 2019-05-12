@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
 
+
     }
 
     private void centerTitle() {

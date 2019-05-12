@@ -40,6 +40,8 @@ public class VenueActivity extends AppCompatActivity {
     private static final String TAG = "VenueActivity";
     private Activity activity;
 
+    private VenueAdapter adapter;
+
     //FAB
     private FloatingActionButton fab_main, fab_call, fab_direction;
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
@@ -152,7 +154,7 @@ public class VenueActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("+6289647045539"));
                 startActivity(intent);
-                //TODO call dialer 
+                //TODO call dialer
             }
         });
 

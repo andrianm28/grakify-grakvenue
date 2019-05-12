@@ -2,6 +2,8 @@ package com.andrianm28.grakify;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,14 +18,17 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.GeoPoint;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
-public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.VenueHolder> {
+public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.VenueHolder> implements Serializable {
     private static final String TAG = "VenueAdapter";
-    private Context mContext;
-
+    Context mContext;
 
     VenueAdapter(Context context,@NonNull FirestoreRecyclerOptions<Venue> options) {
         super(options);
@@ -33,7 +38,6 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
     @Override
     protected void onBindViewHolder(@NonNull VenueHolder holder, int position, @NonNull final Venue model) {
         Log.d(TAG, "onBindViewHolder: called");
-        System.out.println("longitutde"+model.getVenue_geo().getLongitude());
         holder.tv_venue_name.setText(model.getVenue_name());
         holder.tv_venue_address.setText(model.getVenue_address());
 
@@ -60,6 +64,17 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
                 mContext.startActivity(intent);
             }
         });
+//
+        ArrayList<Double> venue_geo_lt = new ArrayList<>();
+        venue_geo_lt.add(model.getVenue_geo().getLatitude());
+
+        Intent intent1 = new Intent(mContext,MainActivity.class);
+        intent1.putExtra("venue_geo_lt",venue_geo_lt);
+        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        mContext.startActivity(new Intent(mContext,MainActivity.class));
+//        Intent myIntent1 = new Intent(MainActivity.class,
+//                venue_geo_lt.get(i));
+//        startActivity(myIntent1);
 
     }
 
