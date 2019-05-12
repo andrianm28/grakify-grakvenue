@@ -68,10 +68,9 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
         ArrayList<Double> venue_geo_lt = new ArrayList<>();
         venue_geo_lt.add(model.getVenue_geo().getLatitude());
 
-        Intent intent1 = new Intent(mContext,MainActivity.class);
-        intent1.putExtra("venue_geo_lt",venue_geo_lt);
-        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        mContext.startActivity(new Intent(mContext,MainActivity.class));
+//        Intent intent1 = new Intent(mContext,MainActivity.class);
+//        intent1.putExtra("venue_geo_lt",venue_geo_lt);
+//        mContext.startActivity(intent1);
 //        Intent myIntent1 = new Intent(MainActivity.class,
 //                venue_geo_lt.get(i));
 //        startActivity(myIntent1);
