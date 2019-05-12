@@ -52,26 +52,25 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
                 Log.d(TAG, "onClick: clicked on: "+model.getVenue_name());
                 Toast.makeText(mContext,model.getVenue_name(),Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(mContext,VenueActivity.class);
-                intent.putExtra("venue_name",model.getVenue_name());
-                intent.putExtra("venue_address",model.getVenue_address());
-                intent.putExtra("venue_desc",model.getVenue_desc());
-                intent.putExtra("venue_image",model.getVenue_image());
-                intent.putExtra("venue_price",model.getVenue_price());
-                intent.putExtra("venue_phone",model.getVenue_phone());
-                intent.putExtra("venue_geo_lt",model.getVenue_geo().getLatitude());
-                intent.putExtra("venue_geo_lg",model.getVenue_geo().getLongitude());
-                mContext.startActivity(intent);
+//                Intent intent = new Intent(mContext,VenueActivity.class);
+//                intent.putExtra("venue_name",model.getVenue_name());
+//                intent.putExtra("venue_address",model.getVenue_address());
+//                intent.putExtra("venue_desc",model.getVenue_desc());
+//                intent.putExtra("venue_image",model.getVenue_image());
+//                intent.putExtra("venue_price",model.getVenue_price());
+//                intent.putExtra("venue_phone",model.getVenue_phone());
+//                intent.putExtra("venue_geo_lt",model.getVenue_geo().getLatitude());
+//                intent.putExtra("venue_geo_lg",model.getVenue_geo().getLongitude());
+//                mContext.startActivity(intent);
             }
         });
 //
         ArrayList<Double> venue_geo_lt = new ArrayList<>();
         venue_geo_lt.add(model.getVenue_geo().getLatitude());
 
-        Intent intent1 = new Intent(mContext,MainActivity.class);
-        intent1.putExtra("venue_geo_lt",venue_geo_lt);
-        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        mContext.startActivity(new Intent(mContext,MainActivity.class));
+//        Intent intent1 = new Intent(mContext,MainActivity.class);
+//        intent1.putExtra("venue_geo_lt",venue_geo_lt);
+//        mContext.startActivity(intent1);
 //        Intent myIntent1 = new Intent(MainActivity.class,
 //                venue_geo_lt.get(i));
 //        startActivity(myIntent1);

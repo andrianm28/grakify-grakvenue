@@ -36,6 +36,7 @@ public class CardFragment extends Fragment {
 
     public void setUpRecyclerView(){
         Query query = venueRef.orderBy("venue_name", Query.Direction.ASCENDING);
+
         FirestoreRecyclerOptions<Venue> options = new FirestoreRecyclerOptions.Builder<Venue>()
                 .setQuery(query,Venue.class)
                 .build();
