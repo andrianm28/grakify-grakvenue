@@ -158,7 +158,6 @@ public class VenueActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:"+getIntent().getStringExtra("venue_phone")));
                 startActivity(intent);
-                //TODO call dialer
             }
         });
 
