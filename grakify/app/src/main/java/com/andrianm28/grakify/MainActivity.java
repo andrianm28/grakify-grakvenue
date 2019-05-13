@@ -91,13 +91,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = new MapFragment();
                 setTitle("Map");
                 break;
-            case R.id.Search:
-                fragment = new SearchFragment();
-                setTitle("Search");
-                break;
-            case R.id.setting:
+            case R.id.Setting:
                 fragment = new SettingFragment();
-                setTitle("setting");
+                setTitle("Setting");
                 break;
         }
         return loadFragment(fragment);
