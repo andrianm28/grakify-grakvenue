@@ -1,6 +1,7 @@
 package com.andrianm28.grakify;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,6 +48,8 @@ public class VenueActivity extends AppCompatActivity {
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
     TextView tv_fab_call, tv_fab_direction;
     Boolean isOpen = false;
+    double vglt=0,vglg=0;
+    int venuePrice = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -163,6 +166,29 @@ public class VenueActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Get Direction", Toast.LENGTH_SHORT).show();
+                String uri = String.format(
+                        Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)",
+                        getIntent().getDoubleExtra("venue_geo_lt",vglt),
+                        getIntent().getDoubleExtra("venue_geo_lg",vglg),
+                        getIntent().getStringExtra("venue_name"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                intent.setPackage("com.google.android.apps.maps");
+                try
+                {
+                    startActivity(intent);
+                }
+                catch(ActivityNotFoundException ex)
+                {
+                    try
+                    {
+                        Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                        startActivity(unrestrictedIntent);
+                    }
+                    catch(ActivityNotFoundException innerEx)
+                    {
+                        Toast.makeText(getApplicationContext(), "Please install a maps application", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
     }
@@ -184,10 +210,8 @@ public class VenueActivity extends AppCompatActivity {
             String venue_address= getIntent().getStringExtra("venue_address");
             String venue_image = getIntent().getStringExtra("venue_image");
             String venue_desc = getIntent().getStringExtra("venue_desc");
-            int venuePrice = 0;
             int venue_price = getIntent().getIntExtra("venue_price",venuePrice);
             String venue_phone = getIntent().getStringExtra("venue_phone");
-            double vglt=0,vglg=0;
             double venue_geo_lt = (double) getIntent().getDoubleExtra("venue_geo_lt",vglt);
             double venue_geo_lg = (double) getIntent().getDoubleExtra("venue_geo_lg",vglg);
 
