@@ -1,20 +1,18 @@
-# Grakify
+# grakvenue
 
-## GrakVenue
+	# a sport venue finder.
 
-	# A sport venue finder.
+## venues
 
-# Venues
+	scroll sport venues that you seeking for
 
-	Scroll sport venues that you seeking for
+## venue detail
 
-# Venue Detail
+	information that you need, dial or get direction venue directly
 
-	Information that you need, dial or get direction venue directly
-
-# Venues Location
+## venues position
 	
-	Find sport venues near you
+	find sport venues near you
 	
 
 
