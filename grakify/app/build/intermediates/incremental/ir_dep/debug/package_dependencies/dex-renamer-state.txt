@@ -1,7 +1,0 @@
-#Mon May 13 09:44:16 WIB 2019
-base.0=/home/andrianm28/Semester8/PAM/tubesPAM/grakify/app/build/intermediates/transforms/dexMerger/debug/10
-path.1=classes2.dex
-renamed.1=classes2.dex
-path.0=classes.dex
-renamed.0=classes.dex
-base.1=/home/andrianm28/Semester8/PAM/tubesPAM/grakify/app/build/intermediates/transforms/dexMerger/debug/10
