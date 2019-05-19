@@ -128,10 +128,10 @@ public class MapFragment extends Fragment {
                      intent.putExtra("venue_image",model.getVenue_image());
                      intent.putExtra("venue_price",model.getVenue_price());
                      intent.putExtra("venue_phone",model.getVenue_phone());
-//                     intent.putExtra("venue_geo_lt",model.getVenue_geo().getLatitude());
-//                     intent.putExtra("venue_geo_lg",model.getVenue_geo().getLongitude());
-                     intent.putExtra("venue_geo_lt",-5.3995857);
-                     intent.putExtra("venue_geo_lg",105.2642129);
+                     intent.putExtra("venue_geo_lt",model.getVenue_geo().getLatitude());
+                     intent.putExtra("venue_geo_lg",model.getVenue_geo().getLongitude());
+//                     intent.putExtra("venue_geo_lt",-5.3995857);
+//                     intent.putExtra("venue_geo_lg",105.2642129);
                      startActivity(intent);
                  }
              });
