@@ -29,6 +29,7 @@ import java.util.Locale;
 public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.VenueHolder> implements Serializable {
     private static final String TAG = "VenueAdapter";
     Context mContext;
+    VenueModel venue;
 
     VenueAdapter(Context context,@NonNull FirestoreRecyclerOptions<Venue> options) {
         super(options);
@@ -52,6 +53,10 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
                 Log.d(TAG, "onClick: clicked on: "+model.getVenue_name());
                 Toast.makeText(mContext,model.getVenue_name(),Toast.LENGTH_SHORT).show();
 
+//                venue.setName(model.getVenue_name());
+//                venue.setAddress(model.getVenue_address());
+//                venue.setDesc(model.getdesc);
+
                 Intent intent = new Intent(mContext,VenueActivity.class);
                 intent.putExtra("venue_name",model.getVenue_name());
                 intent.putExtra("venue_address",model.getVenue_address());
@@ -61,6 +66,8 @@ public class VenueAdapter extends FirestoreRecyclerAdapter<Venue, VenueAdapter.V
                 intent.putExtra("venue_phone",model.getVenue_phone());
                 intent.putExtra("venue_geo_lt",model.getVenue_geo().getLatitude());
                 intent.putExtra("venue_geo_lg",model.getVenue_geo().getLongitude());
+
+
                 mContext.startActivity(intent);
             }
         });

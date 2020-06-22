@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tubesPAM.iml" filepath="$PROJECT_DIR$/tubesPAM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="grakify-grakvenue/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/grakify-grakvenue.iml" filepath="$PROJECT_DIR$/.idea/modules/grakify-grakvenue.iml" group="grakify-grakvenue" />
     </modules>
   </component>
 </project>

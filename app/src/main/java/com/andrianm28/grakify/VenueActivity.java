@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class VenueActivity extends AppCompatActivity {
     Boolean isOpen = false;
     double vglt=0,vglg=0;
     int venuePrice = 0;
+    int index = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -194,28 +196,30 @@ public class VenueActivity extends AppCompatActivity {
 
     private void getIncomingIntent(){
         Log.d(TAG, "getIncomingIntent: checking for incoming intents.");
-        if (
-                getIntent().hasExtra("venue_name")&&
-                        getIntent().hasExtra("venue_address")&&
-                        getIntent().hasExtra("venue_image")&&
-                        getIntent().hasExtra("venue_desc")&&
-                        getIntent().hasExtra("venue_price")&&
-                        getIntent().hasExtra("venue_phone")&&
-                        getIntent().hasExtra("venue_geo_lt")&&
-                        getIntent().hasExtra("venue_geo_lg")
-            ){
-            Log.d(TAG, "getIncomingIntent: found intent extras.");
-            String venue_name = getIntent().getStringExtra("venue_name");
-            String venue_address= getIntent().getStringExtra("venue_address");
-            String venue_image = getIntent().getStringExtra("venue_image");
-            String venue_desc = getIntent().getStringExtra("venue_desc");
-            int venue_price = getIntent().getIntExtra("venue_price",venuePrice);
-            String venue_phone = getIntent().getStringExtra("venue_phone");
+        Log.d(TAG, "getIncomingIntent: found intent extras.");
+        String venue_name = getIntent().getStringExtra("venue_name");
+        String venue_address= getIntent().getStringExtra("venue_address");
+        String venue_image = getIntent().getStringExtra("venue_image");
+        String venue_desc = getIntent().getStringExtra("venue_desc");
+        int venue_price = getIntent().getIntExtra("venue_price",venuePrice);
+        String venue_phone = getIntent().getStringExtra("venue_phone");
+
+        if (!getIntent().hasExtra("index")){
             double venue_geo_lt = (double) getIntent().getDoubleExtra("venue_geo_lt",vglt);
             double venue_geo_lg = (double) getIntent().getDoubleExtra("venue_geo_lg",vglg);
-
             setVenue(venue_name,venue_address,venue_desc,venue_image,venue_price,venue_phone,venue_geo_lt,venue_geo_lg);
-        }
+        } else {
+            Log.d(TAG, "else execute");
+            ArrayList<ParcelableGeoPoint> parcelableGeoPointArrayList = getIntent().getParcelableArrayListExtra("geo_point");
+            ArrayList<GeoPoint> geoList = new ArrayList<>();
+            for (ParcelableGeoPoint point: parcelableGeoPointArrayList
+            ) {geoList.add(point.getGeoPoint());
+            }
+            int i = getIntent().getIntExtra("index",index);
+            double venue_geo_lt = geoList.get(i).getLatitude();
+            double venue_geo_lg = geoList.get(i).getLongitude();
+            setVenue(venue_name,venue_address,venue_desc,venue_image,venue_price,venue_phone,venue_geo_lt,venue_geo_lg);
+       }
     }
 
     private void setVenue(
@@ -253,17 +257,19 @@ public class VenueActivity extends AppCompatActivity {
         TextView tv_venue_phone = findViewById(R.id.venue_phone);
         tv_venue_phone.setText(venue_phone);
 
+        final LatLng geoLatLng = new LatLng(venue_geo_lt ,venue_geo_lg);
+        Log.d(TAG, "geolatlng : "+geoLatLng);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_fragment);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
+
                 mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
                 mMap.clear(); //clear old markers
-
                 CameraPosition venue_geo = CameraPosition.builder()
-                        .target(new LatLng(venue_geo_lt, venue_geo_lg))
+                        .target(geoLatLng)
                         .zoom(18)
                         .bearing(0)
                         .build();
@@ -272,7 +278,7 @@ public class VenueActivity extends AppCompatActivity {
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(venue_geo), 2000, null);
 
                 Marker marker = mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(venue_geo_lt, venue_geo_lg))
+                        .position(geoLatLng)
                         .title(venue_name)
                         .snippet(venue_address)
                 );

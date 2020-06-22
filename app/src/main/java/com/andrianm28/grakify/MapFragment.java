@@ -43,10 +43,21 @@ public class MapFragment extends Fragment {
     private static final String TAG = "MapFragment";
     private Venue model;
 
+    private String venueName;
+    private String venueAddress;
+    private String venueDesc;
+    private String venueImage;
+    private int venuePrice;
+    private String venuePhone;
+
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference venueRef = db.collection("venue");
 
     ArrayList<Venue> list = new ArrayList<Venue>();
+
+    ArrayList<ParcelableGeoPoint> geoPointList = new ArrayList<ParcelableGeoPoint>();
+
     private Map<Marker, Integer> markersOrderNumbers = new HashMap<>();
     private int markerIndex = 0;
 
@@ -89,7 +100,7 @@ public class MapFragment extends Fragment {
                         if(task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, "MAPQWE" + document.getId() + " => " + document.getData());
-                                LatLng latLng = new LatLng (((GeoPoint) document.get("venue_geo")).getLatitude(), ((GeoPoint) document.get("venue_geo")).getLongitude());
+                                GeoPoint geoPoint = new GeoPoint( ((GeoPoint) document.get("venue_geo")).getLatitude(),((GeoPoint) document.get("venue_geo")).getLongitude() );
                                 list.add(new Venue(
                                         ((Long)document.get("id")).intValue(),
                                         document.get("venue_name").toString(),
@@ -98,11 +109,15 @@ public class MapFragment extends Fragment {
                                         document.get("venue_image").toString(),
                                         ((Long)document.get("venue_price")).intValue(),
                                         document.get("venue_phone").toString(),
-                                        ((GeoPoint) document.get("venue_geo"))
+                                        geoPoint
                                 ));
-                                Log.d(TAG, "LATLONG" + latLng.toString());
+                                geoPointList.add(
+                                        new ParcelableGeoPoint(geoPoint)
+                                );
+                                Log.d(TAG, "LATLONG" + new LatLng(((GeoPoint) document.get("venue_geo")).getLatitude(),((GeoPoint) document.get("venue_geo")).getLongitude()));
+                                Log.d(TAG, "geopointt:"+geoPoint);
                                 Marker marker = mMap.addMarker(new MarkerOptions()
-                                        .position(latLng)
+                                        .position(new LatLng(((GeoPoint) document.get("venue_geo")).getLatitude(),((GeoPoint) document.get("venue_geo")).getLongitude()))
                                         .title(document.get("venue_name").toString())
                                         .snippet(document.get("venue_address").toString())
                                 );
@@ -121,17 +136,45 @@ public class MapFragment extends Fragment {
                      Integer index = markersOrderNumbers.get(marker);
                      Intent intent = new Intent(getActivity(),VenueActivity.class);
                      model = list.get(index);
+                     ParcelableGeoPoint getgeo = geoPointList.get(index);
                      Log.d(TAG, "KLIKMARKER: " + index);
+                     Log.d(TAG, "venue name:"+model.getVenue_name());
+                     Log.d(TAG, "venueprice : "+model.getVenue_price());
+                     Log.d(TAG, "parcelablegetgeo : "+getgeo);
+
+
                      intent.putExtra("venue_name",model.getVenue_name());
                      intent.putExtra("venue_address",model.getVenue_address());
                      intent.putExtra("venue_desc",model.getVenue_desc());
                      intent.putExtra("venue_image",model.getVenue_image());
                      intent.putExtra("venue_price",model.getVenue_price());
                      intent.putExtra("venue_phone",model.getVenue_phone());
-                     intent.putExtra("venue_geo_lt",model.getVenue_geo().getLatitude());
-                     intent.putExtra("venue_geo_lg",model.getVenue_geo().getLongitude());
-//                     intent.putExtra("venue_geo_lt",-5.3995857);
-//                     intent.putExtra("venue_geo_lg",105.2642129);
+                     intent.putExtra("venue_geo_lt",-90);
+                     intent.putExtra("venue_geo_lg",90);
+                     intent.putExtra("geo_point",geoPointList);
+                     Log.d(TAG, "geopointlist: "+geoPointList);
+                     intent.putExtra("index",index);
+
+                     String venueName = model.getVenue_name();
+                     String venueAddress = model.getVenue_address();
+                     String venueDesc = model.getVenue_desc();
+                     String venueImage = model.getVenue_image();
+                     int venuePrice = model.getVenue_price();
+                     String venuePhone = model.getVenue_phone();
+                     Log.d(TAG, "geolat: "+model.getVenue_geo());
+//                     Double venueLt = model.getVenue_geo().getLatitude();
+//                     Double venueLg = model.getVenue_geo().getLongitude();
+
+
+//                     venue.setName(venueName);
+//                     venue.setAddress(venueAddress);
+//                     venue.setDesc(venueDesc);
+//                     venue.setImage(venueImage);
+//                     venue.setPrice(venuePrice);
+//                     venue.setPhone(venuePhone);
+//                     venue.setGeo_lt(venueLt);
+//                     venue.setGeo_lg(venueLg);
+//                     intent.putExtra("Venue",venue);
                      startActivity(intent);
                  }
              });
